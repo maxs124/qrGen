@@ -1,0 +1,70 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.3.21'
+        springBootVersion = '2.1.3.RELEASE'
+        jacksonVersion = '2.9.7'
+        swaggerVersion = '2.9.2'
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion")
+        classpath("org.hidetake:gradle-ssh-plugin:2.9.0")
+    }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.plugin.jpa' version '1.3.21'
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.21'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.3.21'
+}
+
+apply plugin: 'kotlin-jpa'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.mshmelev.qrApp'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr353'
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+//    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation "com.google.zxing:core:3.3.2"
+    implementation "com.google.zxing:javase:3.3.2"
+//    implementation 'org.apache.commons:commons-io:1.3.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    runtime("mysql:mysql-connector-java")
+}
+
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ['-Xjsr305=strict']
+        jvmTarget = '1.8'
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ['-Xjsr305=strict']
+        jvmTarget = '1.8'
+    }
+}
